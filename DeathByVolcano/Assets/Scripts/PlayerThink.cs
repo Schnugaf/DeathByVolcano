@@ -151,7 +151,5 @@ public class PlayerThink : MonoBehaviour
 
 		chargeTimer = Mathf.Clamp (chargeTimer, 0f, maxChargeTime);
 
-		if (Input.GetKeyDown (KeyCode.R))
-			Application.LoadLevel (Application.loadedLevel);
 	}
 }
