@@ -11,7 +11,10 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
     public float timeMax;
     public int pOneScore;
     public int PTwoScore;
-    public static WhenTheManComesAroundDynamcs godClass;
+
+    PointDistributionUnityKernelFinalBuild PointScript;
+    GameObject Points;
+
 
     int godScoreValue;
     Rigidbody2D AGH;
@@ -41,6 +44,8 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
         //  transform.position = Vector3.Lerp(transform.position, GodDestination.position, (Vector3.Distance( lastPos, GodDestination.position) * Time.deltaTime) * speed);
 
         AGH.AddForce((gdPos - transform.position) * speed * Time.smoothDeltaTime);
+        Points = GameObject.Find("LavaCollider");
+        PointScript = Points.GetComponent<PointDistributionUnityKernelFinalBuild>();
 
     }
 
@@ -111,23 +116,22 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
 
         }
 
-    }
-
-    void lavaCollisionOrIncinerationIfYouWill(Collision2D lavaCollision)
-    {
-        if (lavaCollision.transform.tag == "Player1" || lavaCollision.transform.tag == "Player2")
+        if (collision2D.gameObject.tag == "Player1" || collision2D.gameObject.tag == "Player2")
         {
-            pOneScore = PointDistributionUnityKernelFinalBuild.InstanceScore.PlayerOneScore;
-            PTwoScore = PointDistributionUnityKernelFinalBuild.InstanceScore.PlayerTwoScore;
-            if (tag == "Player1")
+            pOneScore = PointScript.PlayerOneScore;
+            PTwoScore = PointScript.PlayerTwoScore;
+
+            if (collision2D.gameObject.tag == "Player1")
             {
                 pOneScore = pOneScore + godScoreValue;
+                PointScript.PlayerOneScore = pOneScore;
                 Destroy(GameObject.FindWithTag("Player1"));
             }
 
-            if (tag == "Player2")
+            if (collision2D.gameObject.tag == "Player2")
             {
                 PTwoScore = PTwoScore + godScoreValue;
+                PointScript.PlayerTwoScore = PTwoScore;
                 Destroy(GameObject.FindWithTag("Player2"));
             }
         }
