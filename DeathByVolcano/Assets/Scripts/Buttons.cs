@@ -4,20 +4,31 @@ using UnityEngine.SceneManagement;
 
 public class Buttons : MonoBehaviour {
 
+	public Pause pause;
+
 	public void startClicked ()
 	{
-		SceneManager.LoadScene("MainGame");
+		SceneManager.LoadScene("PauseSetUp");
 	}
 
 	public void tutorialClicked()
 	{
-		SceneManager.LoadScene ("Tutorial");
+		SceneManager.LoadScene ("VictoryScreen");
 	}
 
 	public void exitClicked()
 	{
 		print ("Shit Got Real");
 		Application.Quit();
+	}
 
+	public void unPauseClicked()
+	{
+		pause.paused = false;
+	}
+
+	public void menuClicked ()
+	{
+		SceneManager.LoadScene ("StartMenu");
 	}
 }
