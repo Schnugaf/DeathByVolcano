@@ -7,8 +7,6 @@ public class PlayerThink : MonoBehaviour
 	public Transform aimParent;
 	Puppet2D_GlobalControl puppet;
 
-	public bool inPickupAnim;
-
 	public bool isHoldingObject;
 	public bool anim_pickingUpObject;
 	public string side = "Left";
@@ -20,6 +18,12 @@ public class PlayerThink : MonoBehaviour
 	public float maxChargeTime = 2f;
 	float chargeTimer;
 	bool startedCharge;
+
+	public bool anim_throw;
+	bool hasThrownObject;
+	public int throwScale = 500;
+	public float throwWaitTime = 1.5f;
+	float throwWaitTimer;
 
 	public GameObject[] projectiles;
 	public Transform rightHand;
@@ -34,27 +38,29 @@ public class PlayerThink : MonoBehaviour
 
 	void Update ()
 	{
-		//If I don't have an object, play animation to pick it up.
-		if (!isHoldingObject)
+		//If I don't have an object and click, play animation to pick it up.
+		if (!isHoldingObject && !hasThrownObject)
 		{
-			anim.SetTrigger ("PickUp");
-			inPickupAnim = true;
-
-			if (inPickupAnim)
+			if (pi.chargeDown)
 			{
-				if (side == "Left")
-				{
-					puppet.flip = true;
-				}
-				else	//Right side character will turn around.
-				{
-					puppet.flip = false;
-				}
+				anim.SetTrigger ("PickUp");
 			}
+
+			if (side == "Left")
+			{
+				puppet.flip = true;
+			}
+			else	//Right side character will turn around.
+			{
+				puppet.flip = false;
+			}
+			aimParent.localEulerAngles = Vector3.zero;
+
 
 			//Animation will keyframe anim_pickingUpObject to be true.
 			if (!heldObject && anim_pickingUpObject)
 			{
+				//Place random object in hand.
 				heldObject = Instantiate(projectiles[Random.Range(0, projectiles.Length)], rightHand.position, rightHand.rotation) as GameObject;
 				heldObject.transform.parent = rightHand;
 				heldObject.GetComponent<Rigidbody2D> ().isKinematic = true;
@@ -97,6 +103,7 @@ public class PlayerThink : MonoBehaviour
 			if (pi.chargeDown)
 			{
 				startedCharge = true;
+				anim.SetBool("Charging", true);
 			}
 
 			if (startedCharge)
@@ -108,14 +115,43 @@ public class PlayerThink : MonoBehaviour
 			if (startedCharge && !pi.charge)
 			{
 				startedCharge = false;
-				//Send projectile
+				anim.SetBool("Charging", false);
 			}
+
+			//Send projectile
+			if (anim_throw)
+			{
+				print ("Release");
+				anim_throw = false;
+
+				//Detach it
+				heldObject.transform.parent = null;
+				Vector3 angle = (aimParent.GetChild(0).position - aimParent.position).normalized;
+
+				Rigidbody2D rb = heldObject.GetComponent<Rigidbody2D> ();
+				isHoldingObject = false;
+
+				rb.isKinematic = false;
+				rb.AddForce (angle * (chargeTimer * throwScale));
+				chargeTimer = 0;
+				hasThrownObject = true;
+				heldObject = null;
+			}
+		}
+
+		if (hasThrownObject)
+		{
+			throwWaitTimer += Time.deltaTime;
+		}
+		if (throwWaitTimer > throwWaitTime)
+		{
+			hasThrownObject = false;
+			throwWaitTimer = 0f;
 		}
 
 		chargeTimer = Mathf.Clamp (chargeTimer, 0f, maxChargeTime);
 
-		//--------------Anims--------------\\
-
-//		anim.SetBool("Charging", startedCharge);
+		if (Input.GetKeyDown (KeyCode.R))
+			Application.LoadLevel (Application.loadedLevel);
 	}
 }
