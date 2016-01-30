@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 public class Buttons : MonoBehaviour {
 
 	public Pause pause;
+    public CharSelect charSelect;
+    public SelectionStage selStage;
 
 	public void startClicked ()
 	{
-		SceneManager.LoadScene("TestScene");
+		SceneManager.LoadScene("Selection");
 	}
 
 	public void tutorialClicked()
@@ -24,28 +26,34 @@ public class Buttons : MonoBehaviour {
 
 	public void unPauseClicked()
 	{
-		pause.paused = false;
+        if (pause)
+        {
+            pause.paused = false;
+        }
 	}
 
 	public void menuClicked ()
 	{
 		SceneManager.LoadScene ("StartMenu");
 	}
+        
+    public void Leftwards()
+    {
+        if (selStage.chosen == false)
+        {
+            charSelect.character--;
+        }
+    }
+    public void Rightward()
+    {
+        if (selStage.chosen == false)
+        {
+            charSelect.character++;
+        }
+    }
 
-	public void p1Right()
-	{
-		
-	}
-	public void p1Left()
-	{
-
-	}
-	public void p2Right()
-	{
-
-	}
-	public void p2Left()
-	{
-
-	}
+    public void startButton()
+    {
+        SceneManager.LoadScene ("TestScene");
+    }
 }
