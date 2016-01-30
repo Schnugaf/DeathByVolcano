@@ -9,6 +9,11 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
     public float speed;
     public float timeMin;
     public float timeMax;
+    public int pOneScore;
+    public int PTwoScore;
+    public static WhenTheManComesAroundDynamcs godClass;
+
+    int godScoreValue;
     Rigidbody2D AGH;
     Transform GodDestination;
     float journeyLength;
@@ -100,10 +105,31 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
     {
         if (collision2D.transform.tag == "Wall")
         {
-         //   AGH.isKinematic = true;
-          //  AGH.isKinematic = false;
+            //   AGH.isKinematic = true;
+            //  AGH.isKinematic = false;
             StartCoroutine(GodLikePath());
 
+        }
+
+    }
+
+    void lavaCollisionOrIncinerationIfYouWill(Collision2D lavaCollision)
+    {
+        if (lavaCollision.transform.tag == "Player1" || lavaCollision.transform.tag == "Player2")
+        {
+            pOneScore = PointDistributionUnityKernelFinalBuild.InstanceScore.PlayerOneScore;
+            PTwoScore = PointDistributionUnityKernelFinalBuild.InstanceScore.PlayerTwoScore;
+            if (tag == "Player1")
+            {
+                pOneScore = pOneScore + godScoreValue;
+                Destroy(GameObject.FindWithTag("Player1"));
+            }
+
+            if (tag == "Player2")
+            {
+                PTwoScore = PTwoScore + godScoreValue;
+                Destroy(GameObject.FindWithTag("Player2"));
+            }
         }
 
     }
