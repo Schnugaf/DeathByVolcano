@@ -8,7 +8,7 @@ public class Buttons : MonoBehaviour {
 
 	public void startClicked ()
 	{
-		SceneManager.LoadScene("PauseSetUp");
+		SceneManager.LoadScene("TestScene");
 	}
 
 	public void tutorialClicked()
