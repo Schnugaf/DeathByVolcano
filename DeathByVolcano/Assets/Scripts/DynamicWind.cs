@@ -3,12 +3,15 @@ using System.Collections;
 
 public class DynamicWind : MonoBehaviour
 {
+	float timer;
+	float rndTime = 1f;
+	public GameObject[] particles;
+	public Transform[] particleSpawnPos;
 
-
-    public float MaxWind;
-    public float MinWind;
-    public float WindFloat;
-    public float DownWardGravity;
+    public float maxWind;
+    public float minWind;
+    public float windFloat;
+    public float downWardGravity;
 
 
     // Use this for initialization
@@ -21,11 +24,22 @@ public class DynamicWind : MonoBehaviour
     void Update()
     {
         GravityPushX();
+
+		timer += Time.deltaTime;
+
+		if (timer > rndTime)
+		{
+			Vector3 basePos = particleSpawnPos [Random.Range (0, particleSpawnPos.Length)].position;
+			Vector3 pos = new Vector2 (basePos.x + Random.Range (-2f, 2f), basePos.y);
+			Instantiate (particles [Random.Range (0, particles.Length)], pos, Quaternion.identity);
+			timer = 0;
+			rndTime = Random.Range (0.5f, 1.5f);
+		}
     }
 
     void WindRandDir()
     {
-        WindFloat = Random.Range(MinWind, MaxWind);
+        windFloat = Random.Range(minWind, maxWind);
     }
 
     IEnumerator WindChangeFreq()
@@ -42,8 +56,7 @@ public class DynamicWind : MonoBehaviour
 
     void GravityPushX()
     {
-//        Physics.gravity = new Vector3(WindFloat, DownWardGravity, 0);
-		Physics2D.gravity = new Vector2 (WindFloat, DownWardGravity);
+		Physics2D.gravity = new Vector2 (windFloat, downWardGravity);
 		print (Physics2D.gravity.x);
     }
 }

@@ -4,6 +4,7 @@ public class PlayerThink : MonoBehaviour
 {
 	PlayerInput pi;
 	Animator anim;
+	public Transform upperBody;
 	public Transform aimParent;
 	Puppet2D_GlobalControl puppet;
 
@@ -11,7 +12,7 @@ public class PlayerThink : MonoBehaviour
 	public bool anim_pickingUpObject;
 	public string side = "Left";
 
-	public float aimSensitivity = 10f;
+	public float aimSensitivity = 100f;
 	public float maxAimAngle = 70f;
 	public float oppositeAimAngle = 295f;
 
@@ -54,7 +55,7 @@ public class PlayerThink : MonoBehaviour
 			{
 				puppet.flip = false;
 			}
-			aimParent.localEulerAngles = Vector3.zero;
+			upperBody.localEulerAngles = Vector3.zero;
 
 
 			//Animation will keyframe anim_pickingUpObject to be true.
@@ -84,17 +85,17 @@ public class PlayerThink : MonoBehaviour
 			}
 
 			//Aiming up/down
-			aimParent.localEulerAngles += new Vector3(0f, 0f, pi.vertical * aimSensitivity * Time.deltaTime);
+			upperBody.localEulerAngles += new Vector3(0f, 0f, pi.vertical * aimSensitivity * Time.deltaTime);
 
-			if (aimParent.localEulerAngles.z > maxAimAngle)
+			if (upperBody.localEulerAngles.z > maxAimAngle)
 			{
-				if (aimParent.localEulerAngles.z < oppositeAimAngle && aimParent.localEulerAngles.z > oppositeAimAngle - 10f)
+				if (upperBody.localEulerAngles.z < oppositeAimAngle && upperBody.localEulerAngles.z > oppositeAimAngle - 10f)
 				{
-					aimParent.localEulerAngles = new Vector3 (0f, 0f, oppositeAimAngle);
+					upperBody.localEulerAngles = new Vector3 (0f, 0f, oppositeAimAngle);
 				}
-				else if (aimParent.localEulerAngles.z < maxAimAngle + 10)
+				else if (upperBody.localEulerAngles.z < maxAimAngle + 10)
 				{
-					aimParent.localEulerAngles = new Vector3 (0f, 0f, maxAimAngle);
+					upperBody.localEulerAngles = new Vector3 (0f, 0f, maxAimAngle);
 				}
 			}
 
