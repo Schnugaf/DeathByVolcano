@@ -30,18 +30,20 @@ public class DynamicWind : MonoBehaviour
 
     IEnumerator WindChangeFreq()
     {
-        Debug.Log("Hello, I am in WindChangeFreq");
-        int timeWait = Random.Range(2, 5);
+//        Debug.Log("Hello, I am in WindChangeFreq");
+        int timeWait = Random.Range(5, 9);
         yield return new WaitForSeconds(timeWait);
-        Debug.Log("Hello, I have counted for " + timeWait);
+//        Debug.Log("Hello, I have counted for " + timeWait);
         WindRandDir();
-        Debug.Log("Hello again, friend, I have changed the wind direction.");
+//        Debug.Log("Hello again, friend, I have changed the wind direction.");
         StartCoroutine(WindChangeFreq());
     }
     
 
     void GravityPushX()
     {
-        Physics.gravity = new Vector3(WindFloat, DownWardGravity, 0);
+//        Physics.gravity = new Vector3(WindFloat, DownWardGravity, 0);
+		Physics2D.gravity = new Vector2 (WindFloat, DownWardGravity);
+		print (Physics2D.gravity.x);
     }
 }
