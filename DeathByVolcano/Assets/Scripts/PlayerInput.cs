@@ -2,10 +2,11 @@
 
 public class PlayerInput : MonoBehaviour
 {
-	public string vertical;
-	public string charging;
-	[HideInInspector]public bool isCharging;
-	[HideInInspector]public float verticalAxis;
+	public string inputVertical;
+	public string inputCharging;
+	[HideInInspector]public bool chargeDown;
+	[HideInInspector]public bool charge;
+	[HideInInspector]public float vertical;
 
 	void Start ()
 	{
@@ -14,7 +15,8 @@ public class PlayerInput : MonoBehaviour
 
 	void Update ()
 	{
-		verticalAxis = Input.GetAxis (vertical);
-		isCharging = Input.GetButton (charging);
+		vertical = Input.GetAxis (inputVertical);
+		chargeDown = Input.GetButtonDown (inputCharging);
+		charge = Input.GetButton (inputCharging);
 	}
 }
