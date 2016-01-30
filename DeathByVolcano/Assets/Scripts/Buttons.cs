@@ -31,4 +31,21 @@ public class Buttons : MonoBehaviour {
 	{
 		SceneManager.LoadScene ("StartMenu");
 	}
+
+	public void p1Right()
+	{
+		
+	}
+	public void p1Left()
+	{
+
+	}
+	public void p2Right()
+	{
+
+	}
+	public void p2Left()
+	{
+
+	}
 }
