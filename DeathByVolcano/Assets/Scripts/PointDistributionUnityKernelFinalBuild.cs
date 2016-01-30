@@ -19,6 +19,7 @@ public class PointDistributionUnityKernelFinalBuild : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckScoreUpdate();
 
     }
 
