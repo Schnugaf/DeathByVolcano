@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CountDownGame : MonoBehaviour
 {
@@ -28,9 +29,6 @@ public class CountDownGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        EndGUI = GameObject.Find("EndGUI");
-
         CountDownRound();
 
         visualTimer();
@@ -41,13 +39,11 @@ public class CountDownGame : MonoBehaviour
         curCDR += Time.deltaTime;
         if (curCDR > endCDR)
         {
-            print("Time is Out");
+//            print("Time is Out");
             Time.timeScale = 0;
-            EndGUI.SetActive(true);
-            
-
+            SceneManager.LoadScene("VictoryScreen");
         }
-        print(curCDR);
+//        print(curCDR);
 
     }
 
