@@ -19,7 +19,7 @@ public class PlayerThink : MonoBehaviour
 	public float oppositeAimAngle = 295f;
 
 	public float maxChargeTime = 2f;
-	float chargeTimer;
+	public float chargeTimer;
 	bool startedCharge;
 
 	public bool anim_throw;

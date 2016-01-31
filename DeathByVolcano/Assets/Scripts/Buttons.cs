@@ -13,10 +13,10 @@ public class Buttons : MonoBehaviour {
 		SceneManager.LoadScene("Selection");
 	}
 
-	public void tutorialClicked()
-	{
-		SceneManager.LoadScene ("VictoryScreen");
-	}
+//	public void tutorialClicked()
+//	{
+//		SceneManager.LoadScene ("VictoryScreen");
+//	}
 
 	public void exitClicked()
 	{
