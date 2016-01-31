@@ -53,9 +53,9 @@ public class PlayerThink : MonoBehaviour
                     objectWeightIndex = Random.Range(0, projectiles.Length);
                 }
 
-                print(projectiles[objectWeightIndex]);
                 ObjectProperties obj = projectiles[objectWeightIndex].GetComponent<ObjectProperties>();
                 anim.SetInteger("Weight", (int)obj.weight);
+                print(obj.weight);
 
 				inPickupAnim = true;
 			}
