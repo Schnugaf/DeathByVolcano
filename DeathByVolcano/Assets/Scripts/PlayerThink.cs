@@ -5,11 +5,13 @@ public class PlayerThink : MonoBehaviour
 	PlayerInput pi;
 	Animator anim;
 	public Transform upperBody;
+	public Transform[] lottiUpperbody;
 	public Transform aimParent;
 	Puppet2D_GlobalControl puppet;
 
 	public bool isHoldingObject;
 	public bool anim_pickingUpObject;
+	bool inPickupAnim;
 	public string side = "Left";
 
 	public float aimSensitivity = 100f;
@@ -45,17 +47,21 @@ public class PlayerThink : MonoBehaviour
 			if (pi.chargeDown)
 			{
 				anim.SetTrigger ("PickUp");
+				inPickupAnim = true;
 			}
 
-			if (side == "Left")
+			if (inPickupAnim)
 			{
-				puppet.flip = true;
+				if (side == "Left")
+				{
+					puppet.flip = true;
+				}
+				else
+				{	//Right side character will turn around.
+					puppet.flip = false;
+				}
+				upperBody.localEulerAngles = Vector3.zero;
 			}
-			else	//Right side character will turn around.
-			{
-				puppet.flip = false;
-			}
-			upperBody.localEulerAngles = Vector3.zero;
 
 
 			//Animation will keyframe anim_pickingUpObject to be true.
@@ -71,21 +77,10 @@ public class PlayerThink : MonoBehaviour
 			}
 		}
 
-		//---------HAS PICKED UP OBJECT AT THIS POINT---------\\
-
-		if (isHoldingObject)
+		//Aiming up/down
+		if (!inPickupAnim)
 		{
-			if (side == "Left")
-			{
-				puppet.flip = false;
-			}
-			else	//Right side character will turn around.
-			{
-				puppet.flip = true;
-			}
-
-			//Aiming up/down
-			upperBody.localEulerAngles += new Vector3(0f, 0f, pi.vertical * aimSensitivity * Time.deltaTime);
+			upperBody.localEulerAngles += new Vector3 (0f, 0f, pi.vertical * aimSensitivity * Time.deltaTime);
 
 			if (upperBody.localEulerAngles.z > maxAimAngle)
 			{
@@ -97,6 +92,22 @@ public class PlayerThink : MonoBehaviour
 				{
 					upperBody.localEulerAngles = new Vector3 (0f, 0f, maxAimAngle);
 				}
+			}
+		}
+
+		//---------HAS PICKED UP OBJECT AT THIS POINT---------\\
+
+		if (isHoldingObject)
+		{
+			inPickupAnim = false;
+
+			if (side == "Left")
+			{
+				puppet.flip = false;
+			}
+			else	//Right side character will turn around.
+			{
+				puppet.flip = true;
 			}
 
 			//Charging a shot
