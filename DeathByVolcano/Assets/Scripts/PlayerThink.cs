@@ -5,10 +5,10 @@ public class PlayerThink : MonoBehaviour
 	PlayerInput pi;
 	Animator anim;
 	public Transform upperBody;
-	public Transform[] lottiUpperbody;
 	public Transform aimParent;
 	Puppet2D_GlobalControl puppet;
 
+    int objectWeightIndex = 1;
 	public bool isHoldingObject;
 	public bool anim_pickingUpObject;
 	bool inPickupAnim;
@@ -47,6 +47,16 @@ public class PlayerThink : MonoBehaviour
 			if (pi.chargeDown)
 			{
 				anim.SetTrigger ("PickUp");
+
+                if (!inPickupAnim)
+                { //1 frame
+                    objectWeightIndex = Random.Range(0, projectiles.Length);
+                }
+
+                print(projectiles[objectWeightIndex]);
+                ObjectProperties obj = projectiles[objectWeightIndex].GetComponent<ObjectProperties>();
+                anim.SetInteger("Weight", (int)obj.weight);
+
 				inPickupAnim = true;
 			}
 
@@ -68,9 +78,18 @@ public class PlayerThink : MonoBehaviour
 			if (!heldObject && anim_pickingUpObject)
 			{
 				//Place random object in hand.
-				heldObject = Instantiate(projectiles[Random.Range(0, projectiles.Length)], rightHand.position, rightHand.rotation) as GameObject;
+                heldObject = Instantiate(projectiles[objectWeightIndex], rightHand.position, rightHand.rotation) as GameObject;
 				heldObject.transform.parent = rightHand;
 				heldObject.GetComponent<Rigidbody2D> ().isKinematic = true;
+
+                if (side == "Left")
+                {
+                    heldObject.tag = "Player1";
+                }
+                else
+                {
+                    heldObject.tag = "Player2";
+                }
 
 				isHoldingObject = true;
 				anim_pickingUpObject = false;
@@ -142,7 +161,6 @@ public class PlayerThink : MonoBehaviour
 
 				Rigidbody2D rb = heldObject.GetComponent<Rigidbody2D> ();
 				isHoldingObject = false;
-
 				rb.isKinematic = false;
 				rb.AddForce (angle * (chargeTimer * throwScale));
 				chargeTimer = 0;
