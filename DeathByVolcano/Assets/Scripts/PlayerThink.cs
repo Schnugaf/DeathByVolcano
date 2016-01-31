@@ -8,6 +8,10 @@ public class PlayerThink : MonoBehaviour
 	public Transform aimParent;
 	Puppet2D_GlobalControl puppet;
 
+    public AudioClip[] ManGrunt;
+    public AudioClip[] FemGrunt;
+     
+
     int objectWeightIndex = 1;
 	public bool isHoldingObject;
 	public bool anim_pickingUpObject;
@@ -32,12 +36,19 @@ public class PlayerThink : MonoBehaviour
 	public Transform rightHand;
 	GameObject heldObject;
 
-	void Start ()
-	{
-		pi = GetComponent<PlayerInput> ();
-		anim = GetComponent<Animator> ();
-		puppet = GetComponent<Puppet2D_GlobalControl> ();
-	}
+    string whatISmyTag;
+    bool genderBool;
+
+    void Start()
+    {
+        pi = GetComponent<PlayerInput>();
+        anim = GetComponent<Animator>();
+        puppet = GetComponent<Puppet2D_GlobalControl>();
+        whatISmyTag = gameObject.tag;
+
+        GenderCheck();
+
+    }
 
 	void Update ()
 	{
@@ -182,4 +193,16 @@ public class PlayerThink : MonoBehaviour
 		chargeTimer = Mathf.Clamp (chargeTimer, 0f, maxChargeTime);
 
 	}
+
+    void GenderCheck()
+    {
+        if(whatISmyTag == "femPlayer")
+        {
+            genderBool = true;
+        }
+        if(whatISmyTag == "manPlayer")
+        {
+            genderBool = false;
+        }
+    }
 }
