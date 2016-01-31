@@ -12,6 +12,12 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
     public int pOneScore;
     public int PTwoScore;
 
+    public AudioClip[] GodGrunt;
+    public float volumeAudio;
+
+    AudioClip audioRandom;
+    AudioSource soundMagician;
+
     PointDistributionUnityKernelFinalBuild pointScript;
     public GameObject points;
     public GameObject hitParticlePrefab;
@@ -35,6 +41,10 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
     {
         AGH = GetComponent<Rigidbody2D>();
         StartCoroutine(GodLikePath());
+
+        soundMagician = GetComponent<AudioSource>();
+
+        soundMagician.volume = volumeAudio;
     }
 
     // Update is called once per frame
@@ -128,6 +138,7 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
             {
                 pOneScore = pOneScore + godScoreValue;
                 pointScript.PlayerOneScore = pOneScore;
+                PlayerSoundOff();
                 Destroy(collision2D.gameObject);
             }
 
@@ -135,10 +146,18 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
             {
                 PTwoScore = PTwoScore + godScoreValue;
                 pointScript.PlayerTwoScore = PTwoScore;
+                PlayerSoundOff();
                 Destroy(collision2D.gameObject);
             }
         }
 
+    }
+
+    void PlayerSoundOff()
+    {
+
+            audioRandom = GodGrunt[Random.Range(0, GodGrunt.Length)];
+            soundMagician.PlayOneShot(audioRandom);
     }
 
 
