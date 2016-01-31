@@ -17,7 +17,7 @@ public class Pause : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if ((Input.GetKeyDown (KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.P)))
+        if ((Input.GetKeyDown (KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.P)) || Input.GetButtonDown("Start"))
 		{
 				paused = !paused;
 		}
@@ -25,6 +25,7 @@ public class Pause : MonoBehaviour {
 		if (paused) {
 			pCanvas.SetActive(true);
 			Time.timeScale = 0f;
+            print (Input.GetAxis("Vertical"));
 		} 
 
 		else 
