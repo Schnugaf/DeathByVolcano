@@ -12,8 +12,8 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
     public int pOneScore;
     public int PTwoScore;
 
-    PointDistributionUnityKernelFinalBuild PointScript;
-    GameObject Points;
+    PointDistributionUnityKernelFinalBuild pointScript;
+    public GameObject points;
 
 
     public int godScoreValue;
@@ -44,8 +44,7 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
         //  transform.position = Vector3.Lerp(transform.position, GodDestination.position, (Vector3.Distance( lastPos, GodDestination.position) * Time.deltaTime) * speed);
 
         AGH.AddForce((gdPos - transform.position) * speed * Time.smoothDeltaTime);
-        Points = GameObject.Find("LavaCollider");
-        PointScript = Points.GetComponent<PointDistributionUnityKernelFinalBuild>();
+        pointScript = points.GetComponent<PointDistributionUnityKernelFinalBuild>();
 
     }
 
@@ -87,9 +86,9 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
 
     IEnumerator GodLikePath()
     {
-        Debug.Log("Hello, I am god, watch me perform an act of moving");
+//        Debug.Log("Hello, I am god, watch me perform an act of moving");
         LeftSideUpdate();
-        Debug.Log("I am now going towards the left, look at me go, wooo weee!");
+//        Debug.Log("I am now going towards the left, look at me go, wooo weee!");
         startTime = Time.time;
         journeyLength = Vector3.Distance(transform.position, GodDestination.position);
         lastPos = transform.position;
@@ -118,22 +117,22 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
 
         if (collision2D.gameObject.tag == "Player1" || collision2D.gameObject.tag == "Player2")
         {
-            pOneScore = PointScript.PlayerOneScore;
-            PTwoScore = PointScript.PlayerTwoScore;
+            pOneScore = pointScript.PlayerOneScore;
+            PTwoScore = pointScript.PlayerTwoScore;
             
 
             if (collision2D.gameObject.tag == "Player1")
             {
                 pOneScore = pOneScore + godScoreValue;
-                PointScript.PlayerOneScore = pOneScore;
-                Destroy(GameObject.FindWithTag("Player1"));
+                pointScript.PlayerOneScore = pOneScore;
+                Destroy(collision2D.gameObject);
             }
 
             if (collision2D.gameObject.tag == "Player2")
             {
                 PTwoScore = PTwoScore + godScoreValue;
-                PointScript.PlayerTwoScore = PTwoScore;
-                Destroy(GameObject.FindWithTag("Player2"));
+                pointScript.PlayerTwoScore = PTwoScore;
+                Destroy(collision2D.gameObject);
             }
         }
 

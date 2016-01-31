@@ -9,6 +9,8 @@ public class PointDistributionUnityKernelFinalBuild : MonoBehaviour
     public int PlayerOneScore;
     public int PlayerTwoScore;
 
+    public GameObject lavaBlobPrefab;
+
     // Use this for initialization
     void Start()
     {
@@ -25,21 +27,21 @@ public class PointDistributionUnityKernelFinalBuild : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D lavaCollision)
     {
-        print("Collision");
         if (lavaCollision.gameObject.tag == "Player1" || lavaCollision.gameObject.tag == "Player2")
         {
-            Debug.Log("Collision detected");
+            Vector3 pos = new Vector3(lavaCollision.transform.position.x, lavaCollision.transform.position.y + 1.35f, 0f);
+            Instantiate(lavaBlobPrefab, pos, Quaternion.identity);
+
             if (lavaCollision.gameObject.tag == "Player1")
             {
                 PlayerOneScore = PlayerOneScore + lavaScoreValue;
-                Destroy(GameObject.FindWithTag("Player1"));
-                Debug.Log("Player One Collided");
+                Destroy(lavaCollision.gameObject);
             }
 
             if (lavaCollision.gameObject.tag == "Player2")
             {
                 PlayerTwoScore = PlayerTwoScore + lavaScoreValue;
-                Destroy(GameObject.FindWithTag("Player2"));
+                Destroy(lavaCollision.gameObject);
             }
         }
 
