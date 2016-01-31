@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class CharSelect : MonoBehaviour 
 {
+    
     public Text charText;
     public GameObject brutus;
     public GameObject lotti;
