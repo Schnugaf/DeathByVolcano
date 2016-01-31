@@ -7,8 +7,7 @@ public class ControllerSelection : MonoBehaviour {
     public CharSelect charSelect;
     public PlayerInput pInput;
     public SelectionStage selStage;
-    public SelectionStage p1Chosen;
-    public SelectionStage p2Chosen;
+    public SelectionStage otherChosen;
 
     float selectorFloat;
 
@@ -57,7 +56,7 @@ public class ControllerSelection : MonoBehaviour {
         }
         if (pInput.start)
         {
-            if (p1Chosen.chosen == true && p2Chosen.chosen == true)
+            if (selStage.chosen == true && otherChosen.chosen == true)
             {
                 SceneManager.LoadScene("TestScene");
             }
