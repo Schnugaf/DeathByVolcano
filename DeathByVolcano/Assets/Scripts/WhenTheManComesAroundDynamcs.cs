@@ -14,6 +14,7 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
 
     PointDistributionUnityKernelFinalBuild pointScript;
     public GameObject points;
+    public GameObject hitParticlePrefab;
 
 
     public int godScoreValue;
@@ -119,7 +120,9 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
         {
             pOneScore = pointScript.PlayerOneScore;
             PTwoScore = pointScript.PlayerTwoScore;
-            
+
+            GameObject particleInstance = Instantiate(hitParticlePrefab, transform.position, Quaternion.identity) as GameObject;
+            particleInstance.GetComponent<SpriteRenderer>().sprite = collision2D.transform.GetComponent<SpriteRenderer>().sprite;
 
             if (collision2D.gameObject.tag == "Player1")
             {
