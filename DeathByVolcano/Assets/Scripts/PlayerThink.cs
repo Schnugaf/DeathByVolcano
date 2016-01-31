@@ -10,7 +10,10 @@ public class PlayerThink : MonoBehaviour
 
     public AudioClip[] ManGrunt;
     public AudioClip[] FemGrunt;
-     
+    public float volumeAudio;
+
+    AudioClip audioRandom;
+    AudioSource soundMagician;
 
     int objectWeightIndex = 1;
 	public bool isHoldingObject;
@@ -45,8 +48,11 @@ public class PlayerThink : MonoBehaviour
         anim = GetComponent<Animator>();
         puppet = GetComponent<Puppet2D_GlobalControl>();
         whatISmyTag = gameObject.tag;
+        soundMagician = GetComponent<AudioSource>();
 
-        GenderCheck();
+        soundMagician.volume = volumeAudio;
+
+        
 
     }
 
@@ -157,8 +163,10 @@ public class PlayerThink : MonoBehaviour
 			if (startedCharge && !pi.charge)
 			{
 				startedCharge = false;
-				anim.SetBool("Charging", false);
-			}
+                anim.SetBool("Charging", false);
+                GenderCheck();
+                PlayerSoundOff();
+            }
 
 			//Send projectile
 			if (anim_throw)
@@ -199,10 +207,33 @@ public class PlayerThink : MonoBehaviour
         if(whatISmyTag == "femPlayer")
         {
             genderBool = true;
+            print("I am female");
         }
         if(whatISmyTag == "manPlayer")
         {
             genderBool = false;
+        }
+    }
+
+    void PlayerSoundOff()
+    {
+        if (genderBool == true)
+        {
+            print("I have thrown f");
+            audioRandom = FemGrunt[Random.Range(0, FemGrunt.Length)];
+            soundMagician.PlayOneShot(audioRandom);
+            
+        }
+
+        if (genderBool == false)
+        {
+            audioRandom = FemGrunt[Random.Range(0, ManGrunt.Length)];
+            soundMagician.PlayOneShot(audioRandom);
+            print("I have thrown m");
+        }
+        else
+        {
+            print("At least I'm here");
         }
     }
 }
