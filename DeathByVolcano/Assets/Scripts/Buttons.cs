@@ -56,4 +56,14 @@ public class Buttons : MonoBehaviour {
     {
         SceneManager.LoadScene ("TestScene");
     }
+
+    public void backButton()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+
+    public void backSelection()
+    {
+        SceneManager.LoadScene("Selection");
+    }
 }
