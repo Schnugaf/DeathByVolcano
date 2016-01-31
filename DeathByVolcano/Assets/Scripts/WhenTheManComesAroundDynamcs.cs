@@ -12,8 +12,8 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
     public int pOneScore;
     public int PTwoScore;
 
-    PointDistributionUnityKernelFinalBuild PointScript;
-    GameObject Points;
+    PointDistributionUnityKernelFinalBuild pointScript;
+    GameObject points;
 
 
     public int godScoreValue;
@@ -44,8 +44,8 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
         //  transform.position = Vector3.Lerp(transform.position, GodDestination.position, (Vector3.Distance( lastPos, GodDestination.position) * Time.deltaTime) * speed);
 
         AGH.AddForce((gdPos - transform.position) * speed * Time.smoothDeltaTime);
-        Points = GameObject.Find("LavaCollider");
-        PointScript = Points.GetComponent<PointDistributionUnityKernelFinalBuild>();
+        points = GameObject.Find("LavaCollider");
+        pointScript = points.GetComponent<PointDistributionUnityKernelFinalBuild>();
 
     }
 
@@ -118,21 +118,21 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
 
         if (collision2D.gameObject.tag == "Player1" || collision2D.gameObject.tag == "Player2")
         {
-            pOneScore = PointScript.PlayerOneScore;
-            PTwoScore = PointScript.PlayerTwoScore;
+            pOneScore = pointScript.PlayerOneScore;
+            PTwoScore = pointScript.PlayerTwoScore;
             
 
             if (collision2D.gameObject.tag == "Player1")
             {
                 pOneScore = pOneScore + godScoreValue;
-                PointScript.PlayerOneScore = pOneScore;
+                pointScript.PlayerOneScore = pOneScore;
                 Destroy(GameObject.FindWithTag("Player1"));
             }
 
             if (collision2D.gameObject.tag == "Player2")
             {
                 PTwoScore = PTwoScore + godScoreValue;
-                PointScript.PlayerTwoScore = PTwoScore;
+                pointScript.PlayerTwoScore = PTwoScore;
                 Destroy(GameObject.FindWithTag("Player2"));
             }
         }
