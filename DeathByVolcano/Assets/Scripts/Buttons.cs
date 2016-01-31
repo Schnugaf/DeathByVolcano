@@ -54,7 +54,7 @@ public class Buttons : MonoBehaviour {
 
     public void startButton()
     {
-        SceneManager.LoadScene ("JTestScene");
+        SceneManager.LoadScene ("J2TestScene");
     }
 
     public void backButton()

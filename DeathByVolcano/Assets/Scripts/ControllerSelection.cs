@@ -63,7 +63,7 @@ public class ControllerSelection : MonoBehaviour {
         {
             if (selStage.chosen == true && otherChosen.chosen == true)
             {
-                SceneManager.LoadScene("JTestScene");
+                SceneManager.LoadScene("J2TestScene");
             }
         }
 	}

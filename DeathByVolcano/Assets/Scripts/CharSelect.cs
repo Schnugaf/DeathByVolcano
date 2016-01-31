@@ -14,6 +14,8 @@ public class CharSelect : MonoBehaviour
     public SelectionStage p2Chosen;
     public Button startButton;
 
+    public CharBoolHandler charHandler;
+
     public enum Characters
     {
         brutus,
@@ -23,7 +25,7 @@ public class CharSelect : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-	
+//        charHandler = GetComponent<CharBoolHandler>();
 	}
 	
 	// Update is called once per frame
@@ -57,6 +59,16 @@ public class CharSelect : MonoBehaviour
         else
         {
             startButton.gameObject.SetActive(false);
+        }
+
+        if (brutus.activeSelf)
+        {
+            charHandler.charBool = true;
+        }
+        else
+        {
+            charHandler.charBool = false;
+
         }
 	}
 
