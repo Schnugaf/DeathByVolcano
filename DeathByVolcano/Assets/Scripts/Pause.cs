@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Pause : MonoBehaviour {
 
-	public bool paused;
+    public bool paused;
+    float timer;
 
 	public GameObject pCanvas;
 
@@ -24,13 +25,14 @@ public class Pause : MonoBehaviour {
 
 		if (paused) {
 			pCanvas.SetActive(true);
-			Time.timeScale = 0f;
+            Time.timeScale = 0f;
 		} 
 
-		else 
+/*		else 
 		{
 			pCanvas.SetActive(false);
 			Time.timeScale = 1f;
 		}
+        */
 	}
 }

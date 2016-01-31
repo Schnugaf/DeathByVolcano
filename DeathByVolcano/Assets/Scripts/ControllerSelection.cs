@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class ControllerSelection : MonoBehaviour {
 
+    Animator brutusanim;
+    Animator lottianim;
     public CharSelect charSelect;
     public PlayerInput pInput;
     public SelectionStage selStage;
@@ -15,7 +17,8 @@ public class ControllerSelection : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
     {
-	
+        brutusanim = charSelect.brutus.GetComponent<Animator> ();
+        lottianim = charSelect.lotti.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -49,6 +52,8 @@ public class ControllerSelection : MonoBehaviour {
         if (pInput.submit)
         {
             selStage.chosen = !selStage.chosen;
+            brutusanim.SetTrigger("Picked");
+            lottianim.SetTrigger("Picked");
         }
         if (pInput.cancel)
         {
@@ -58,7 +63,7 @@ public class ControllerSelection : MonoBehaviour {
         {
             if (selStage.chosen == true && otherChosen.chosen == true)
             {
-                SceneManager.LoadScene("TestScene");
+                SceneManager.LoadScene("JTestScene");
             }
         }
 	}

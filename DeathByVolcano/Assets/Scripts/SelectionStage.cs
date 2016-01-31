@@ -36,13 +36,13 @@ public class SelectionStage : MonoBehaviour
 	{
 		if (chosen == false) 
 		{
-			theColor.highlightedColor = Color.green;
+            theColor.highlightedColor = Color.white;
 			theColor.normalColor = Color.red;
 			color.a = 0.25f;
 		} 
 		else 
 		{
-			theColor.highlightedColor = Color.red;
+			theColor.highlightedColor = Color.white;
 			theColor.normalColor = Color.green;
 			color.a = 0.25f;
 		}

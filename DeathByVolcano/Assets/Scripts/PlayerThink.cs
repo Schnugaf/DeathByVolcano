@@ -55,7 +55,7 @@ public class PlayerThink : MonoBehaviour
 
                 ObjectProperties obj = projectiles[objectWeightIndex].GetComponent<ObjectProperties>();
                 anim.SetInteger("Weight", (int)obj.weight);
-                print(obj.weight);
+//                print(obj.weight);
 
 				inPickupAnim = true;
 			}
