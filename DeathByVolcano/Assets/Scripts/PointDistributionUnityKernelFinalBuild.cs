@@ -8,15 +8,10 @@ public class PointDistributionUnityKernelFinalBuild : MonoBehaviour
 
     public int PlayerOneScore;
     public int PlayerTwoScore;
-    public static PointDistributionUnityKernelFinalBuild InstanceScore;
-    public static WhenTheManComesAroundDynamcs godInst;
-    WhenTheManComesAroundDynamcs GodScript;
-    GameObject God;
 
     // Use this for initialization
     void Start()
     {
-        InstanceScore = this;
 
         
     }
@@ -24,8 +19,6 @@ public class PointDistributionUnityKernelFinalBuild : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        God = GameObject.Find("VolcanoGod");
-        GodScript = God.GetComponent<WhenTheManComesAroundDynamcs>();
 
 
     }
