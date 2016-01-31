@@ -16,7 +16,7 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
     GameObject Points;
 
 
-    int godScoreValue;
+    public int godScoreValue;
     Rigidbody2D AGH;
     Transform GodDestination;
     float journeyLength;
@@ -120,6 +120,7 @@ public class WhenTheManComesAroundDynamcs : MonoBehaviour
         {
             pOneScore = PointScript.PlayerOneScore;
             PTwoScore = PointScript.PlayerTwoScore;
+            
 
             if (collision2D.gameObject.tag == "Player1")
             {

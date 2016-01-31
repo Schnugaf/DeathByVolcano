@@ -57,6 +57,6 @@ public class DynamicWind : MonoBehaviour
     void GravityPushX()
     {
 		Physics2D.gravity = new Vector2 (windFloat, downWardGravity);
-		print (Physics2D.gravity.x);
+		//print (Physics2D.gravity.x);
     }
 }

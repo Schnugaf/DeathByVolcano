@@ -23,14 +23,17 @@ public class PointDistributionUnityKernelFinalBuild : MonoBehaviour
 
     }
 
-    void lavaCollisionOrIncinerationIfYouWill(Collision2D lavaCollision)
+    void OnTriggerEnter2D(Collider2D lavaCollision)
     {
+        print("Collision");
         if (lavaCollision.gameObject.tag == "Player1" || lavaCollision.gameObject.tag == "Player2")
         {
+            Debug.Log("Collision detected");
             if (lavaCollision.gameObject.tag == "Player1")
             {
                 PlayerOneScore = PlayerOneScore + lavaScoreValue;
                 Destroy(GameObject.FindWithTag("Player1"));
+                Debug.Log("Player One Collided");
             }
 
             if (lavaCollision.gameObject.tag == "Player2")
